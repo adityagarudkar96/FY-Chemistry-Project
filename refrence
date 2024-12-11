@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Playlist with Button Control</title>
+    <style>
+        /* Video container */
+        .video-container {
+            position: relative;
+            width: 600px; /* Adjust the width */
+            height: 340px; /* Adjust the height */
+        }
+
+        /* The video element */
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Play button style */
+        .play-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .play-button:hover {
+            background-color: #006F8A;
+        }
+    </style>
+</head>
+<body>
+
+<div class="video-container">
+    <video id="myVideo" muted preload="auto">
+        <source id="videoSource" src="video1.mp4" type="video/mp4">
+        <!-- Add other formats for compatibility -->
+    </video>
+</div>
+
+<button class="play-button" id="playButton">Play Next Video</button>
+
+<script>
+    // Array of video sources
+    const videos = [
+        "video1.mp4", 
+        "video2.mp4", 
+        "video3.mp4", 
+        "video4.mp4", 
+        "video5.mp4"
+    ];
+
+    let currentVideoIndex = 0; // Track the current video
+
+    // Get references to video and button
+    const videoElement = document.getElementById('myVideo');
+    const playButton = document.getElementById('playButton');
+    const videoSource = document.getElementById('videoSource');
+
+    // Function to play the current video
+    function playVideo() {
+        // Update the video source to the next video in the array
+        videoSource.src = videos[currentVideoIndex];
+        videoElement.load(); // Reload the video element
+        videoElement.play(); // Play the current video
+
+        // Update the index for the next video
+        currentVideoIndex = (currentVideoIndex + 1) % videos.length; // Loop back to the first video
+    }
+
+    // Add an event listener to the play button
+    playButton.addEventListener('click', playVideo);
+</script>
+
+</body>
+</html>

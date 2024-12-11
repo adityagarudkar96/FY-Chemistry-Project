@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Virtual Lab</title>
+  </head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="virtualLab.css" />
+  <body>
+   
+ <div class="main">
+  <header>
+    <h1>To Determine Hardness of Water by EDTA Method</h1>
+</header>
+      <div class="left">
+        <div class="video-container">
+          <video id="myVideo" muted preload="auto">
+            <source id="videoSource" src="video1.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+      <div class="right">
+        <!-- Info Section -->
+        <div class="info-box" id="infoBox">
+          <h3>Procedure:</h3>
+          <p id="infoText">Add 5 ml buffer solution in 10ml water sample</p>
+          <button class="play-button" id="playButton">
+            Add 5 ml Buffer solution
+          </button>
+        </div>
+      </div>
+    </div>
+
+  <footer>
+      <p>&copy; 2024 Chemistry Experiments</p>
+  </footer>
+
+    <script>
+      // Array of video sources
+      const videos = [
+        "video1.mp4",
+        "video2.mp4",
+        "video3.mp4",
+        "video4.mp4",
+        "video5.mp4",
+        "video6.mp4",
+        "video7.mp4",
+        "video8.mp4",
+        "video9.mp4",
+        "video10.mp4",
+        "video11.mp4",
+        "video12.mp4",
+        "video13.mp4",
+        "video14.mp4",
+      ];
+
+      // Corresponding texts for each video
+      const buttonTexts = [
+        "Add 1 drop of EBT",
+        "Add 1 drop of EBT",
+        "Add 1 drop of EBT",
+        "Add 1 drop of EBT",
+        "Add 1 drop of EBT",
+        "Titrate",
+        "Titrate",
+        "Titrate",
+        "Titrate",
+        "Titrate",
+        "Titrate",
+        "Titrate",
+        "Titrate",
+        "Titrate",
+      ];
+
+      // Information for next procedure
+      const procedures = [
+        "",
+        "Add 3-4 drops of Erichrome black T indicator",
+        "Add 3-4 drops of Erichrome black T indicator",
+        "Add 3-4 drops of Erichrome black T indicator",
+        "Add 3-4 drops of Erichrome black T indicator",
+        "Now titrate this solution against EDTA till wine red colour changes to sky blue.",
+        "Now titrate this solution against EDTA till wine red colour changes to sky blue.",
+        "Now titrate this solution against EDTA till wine red colour changes to sky blue.",
+        "Now titrate this solution against EDTA till wine red colour changes to sky blue.",
+        "Now titrate this solution against EDTA till wine red colour changes to sky blue.",
+        "Now titrate this solution against EDTA till wine red colour changes to sky blue.",
+        "Now titrate this solution against EDTA till wine red colour changes to sky blue.",
+        "Now titrate this solution against EDTA till wine red colour changes to sky blue.",
+        "Now titrate this solution against EDTA till wine red colour changes to sky blue.",
+      ];
+
+      let currentVideoIndex = 0; // Track the current video
+
+      // Get references to video and button
+      const videoElement = document.getElementById("myVideo");
+      const playButton = document.getElementById("playButton");
+      const videoSource = document.getElementById("videoSource");
+
+      // Function to play the current video
+      function playVideo() {
+        // Disable the button
+        playButton.disabled = true;
+
+        // Update the video source to the next video in the array
+        videoSource.src = videos[currentVideoIndex];
+        videoElement.load(); // Reload the video element
+        videoElement.play(); // Play the current video
+
+        // Use setTimeout to delay the button text change by 3 seconds
+        setTimeout(() => {
+          // Update the button text after 3 seconds
+          playButton.textContent = buttonTexts[currentVideoIndex];
+        }, 2500); // 3000 milliseconds = 3 seconds
+        setTimeout(() => {
+          // Update the info box text immediately
+          infoText.textContent = procedures[currentVideoIndex];
+        }, 2500);
+
+        // Re-enable the button after 2.5 seconds
+        setTimeout(() => {
+          playButton.disabled = false;
+        }, 2500);
+
+        // Update the index for the next video
+        currentVideoIndex = (currentVideoIndex + 1) % videos.length; // Loop back to the first video
+      }
+
+      // Add an event listener to the play button
+      playButton.addEventListener("click", playVideo);
+
+      // Check if all videos have been played
+  if (currentVideoIndex >= videos.length) {
+    // Hide the button after the last video
+    playButton.style.visibility = "hidden";
+    }
+  </script>
+  </body>
+
+ 
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Determination of Water Hardness</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+        }
+        header {
+            background-color: #0074D9;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        nav {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #0074D9;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        section h2 {
+            color: #0074D9;
+            border-bottom: 2px solid #0074D9;
+            padding-bottom: 5px;
+        }
+        .quiz-section {
+            margin-top: 20px;
+        }
+        .quiz-section h2 {
+            color: #FF4136;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .quiz-container button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #0074D9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .quiz-container button:hover {
+            background-color: #005bb5;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #0074D9;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+     /* General Section Styling */
+     .quiz-section {
+        max-width: 700px;
+        margin: 30px auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #f7fbfc, #d6eef9);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        font-family: 'Arial', sans-serif;
+    }
+    .quiz-title {
+        text-align: center;
+        font-size: 1.8em;
+        color: #0074D9;
+        margin-bottom: 20px;
+    }
+
+    .quiz-item {
+        padding: 15px;
+        margin-bottom: 15px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .quiz-item p {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #444;
+    }
+    label {
+        font-size: 1em;
+        color: #333;
+        cursor: pointer;
+    }
+    label:hover {
+        color: #0074D9;
+    }
+
+    button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 30px;
+        font-size: 1.1em;
+        color: white;
+        background: linear-gradient(90deg, #0074D9, #0056a3);
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    button:hover {
+        background: linear-gradient(90deg, #0056a3, #003f75);
+        transform: scale(1.05);
+    }
+
+    /* Result Styling */
+    #quizResult {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1.2em;
+        color: #0074D9;
+    }
+    .correct span{
+        color: green;
+        font-weight: bold;
+    }
+    .incorrect span{
+        color: red;
+        font-weight: bold;
+    }
+    .answer-feedback {
+        font-size: 1em;
+        color: red;
+    }
+
+    /* From Uiverse.io by andrew-demchenk0 */ 
+#error {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 340px;
+  padding: 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  background: #EF665B;
+  border-radius: 8px;
+  top: 0;
+  box-shadow: 0px 0px 5px -3px #111;
+  position: fixed;
+  left: calc(50% - 170px);
+  display: none;
+  transition: transform 1s ease;
+}
+
+.error__icon {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-2px);
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.error__icon path {
+  fill: #fff;
+}
+
+.error__title {
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+  position: absolute;
+  display: inline-block;
+}
+
+#error.show{
+    display: block;
+    opacity: 1;
+   
+}
+#retakeQuiz{
+        display: block;
+        padding: 10px 30px;
+        margin: 50px;
+        font-size: 1.1em;
+        color: white;
+        background: linear-gradient(90deg, #0074D9, #0056a3);
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+}
+#retakeQuiz:hover{
+    background: linear-gradient(90deg, #0056a3, #003f75);
+        transform: scale(1.05);
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>To Determine Hardness of Water by EDTA Method</h1>
+    </header>
+
+    
+
+<div class="error" id="error">
+    <div class="error__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#393a37" d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"></path></svg>
+    </div>
+    <div class="error__title">Please answer all the question to finish the quiz!</div>
+    <!-- <div class="error__close"><svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" height="20"><path fill="#393a37" d="m15.8333 5.34166-1.175-1.175-4.6583 4.65834-4.65833-4.65834-1.175 1.175 4.65833 4.65834-4.65833 4.6583 1.175 1.175 4.65833-4.6583 4.6583 4.6583 1.175-1.175-4.6583-4.6583z"></path></svg></div> -->
+</div>
+
+    <main>
+        <!-- Other sections of the experiment -->
+        <section id="quiz" class="quiz-section">
+            <h2>Quiz: Hardness of Water by EDTA Method</h2>
+            <form id="quizForm">
+                <div class="quiz-item" id="q1">
+                    <p>1. What is hard water?</p>
+                    <label><input type="radio" name="q1" value="a"> Water that lacks minerals</label><br>
+                    <label><input type="radio" name="q1" value="b"> Water containing dissolved calcium and magnesium</label><br>
+                    <label><input type="radio" name="q1" value="c"> Water that is safe for drinking</label><br>
+                    <label><input type="radio" name="q1" value="d"> Distilled water</label>
+                </div>
+                <div class="quiz-item" id="q2">
+                    <p>2. Which ions contribute to water hardness?</p>
+                    <label><input type="radio" name="q2" value="a"> Sodium and potassium</label><br>
+                    <label><input type="radio" name="q2" value="b"> Calcium and magnesium</label><br>
+                    <label><input type="radio" name="q2" value="c"> Chloride and sulfate</label><br>
+                    <label><input type="radio" name="q2" value="d"> Hydrogen and oxygen</label>
+                </div>
+                <div class="quiz-item" id="q3">
+                    <p>3. What is the role of the buffer in the EDTA method?</p>
+                    <label><input type="radio" name="q3" value="a"> Neutralizes the solution</label><br>
+                    <label><input type="radio" name="q3" value="b"> Maintains the pH at 10</label><br>
+                    <label><input type="radio" name="q3" value="c"> Acts as an indicator</label><br>
+                    <label><input type="radio" name="q3" value="d"> Removes impurities</label>
+                </div>
+                <div class="quiz-item" id="q4">
+                    <p>4. What is the endpoint of the EDTA titration?</p>
+                    <label><input type="radio" name="q4" value="a"> Appearance of red color</label><br>
+                    <label><input type="radio" name="q4" value="b"> Disappearance of blue color</label><br>
+                    <label><input type="radio" name="q4" value="c"> Color changes from wine red to blue</label><br>
+                    <label><input type="radio" name="q4" value="d"> Formation of a precipitate</label>
+                </div>
+                <div class="quiz-item" id="q5">
+                    <p>5. What is the principle of the EDTA method?</p>
+                    <label><input type="radio" name="q5" value="a"> Formation of a stable EDTA-metal complex</label><br>
+                    <label><input type="radio" name="q5" value="b"> Reduction of metal ions</label><br>
+                    <label><input type="radio" name="q5" value="c"> Reaction with acid</label><br>
+                    <label><input type="radio" name="q5" value="d"> Filtration of water</label>
+                </div>
+                <div class="quiz-item" id="q6">
+                    <p>6. What is the color of the Metal-EBT complex?</p>
+                    <label><input type="radio" name="q6" value="a"> Blue</label><br>
+                    <label><input type="radio" name="q6" value="b"> Wine red</label><br>
+                    <label><input type="radio" name="q6" value="c"> Green</label><br>
+                    <label><input type="radio" name="q6" value="d"> Yellow</label>
+                </div>
+                <div class="quiz-item" id="q7">
+                    <p>7. Which indicator is used in this experiment?</p>
+                    <label><input type="radio" name="q7" value="a"> Phenolphthalein</label><br>
+                    <label><input type="radio" name="q7" value="b"> Eriochrome Black T</label><br>
+                    <label><input type="radio" name="q7" value="c"> Methyl orange</label><br>
+                    <label><input type="radio" name="q7" value="d"> Bromothymol blue</label>
+                </div>
+                <div class="quiz-item" id="q8">
+                    <p>8. How is the buffer solution of pH 10 prepared?</p>
+                    <label><input type="radio" name="q8" value="a"> By mixing NH₄Cl and NH₄OH</label><br>
+                    <label><input type="radio" name="q8" value="b"> By dissolving NaCl in water</label><br>
+                    <label><input type="radio" name="q8" value="c"> By adding EDTA to water</label><br>
+                    <label><input type="radio" name="q8" value="d"> By using sulfuric acid</label>
+                </div>
+                <div class="quiz-item" id="q9">
+                    <p>9. Why is ZnSO₄ used in the standardization of EDTA?</p>
+                    <label><input type="radio" name="q9" value="a"> To remove impurities</label><br>
+                    <label><input type="radio" name="q9" value="b"> As a standard solution</label><br>
+                    <label><input type="radio" name="q9" value="c"> As a pH buffer</label><br>
+                    <label><input type="radio" name="q9" value="d"> To indicate the endpoint</label>
+                </div>
+                <div class="quiz-item" id="q10">
+                    <p>10. What are the units of water hardness?</p>
+                    <label><input type="radio" name="q10" value="a"> mg/L or ppm of CaCO₃</label><br>
+                    <label><input type="radio" name="q10" value="b"> Moles per liter</label><br>
+                    <label><input type="radio" name="q10" value="c"> Degrees Kelvin</label><br>
+                    <label><input type="radio" name="q10" value="d"> Parts per billion (ppb)</label>
+                </div>
+                <button type="button" id="submitQuiz">Submit</button>
+                <p id="quizResult"></p>
+            </form>
+        </section>
+        
+        </section>
+
+        
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Chemistry Experiments</p>
+    </footer>
+
+    <script>
+       const correctAnswers = {
+        q1: "b",
+        q2: "b",
+        q3: "b",
+        q4: "c",
+        q5: "a",
+        q6: "b",
+        q7: "b",
+        q8: "a",
+        q9: "b",
+        q10: "a"
+    };
+
+    document.getElementById("submitQuiz").addEventListener("click", function(){
+    const form = document.getElementById('quizForm');
+  const radioGroups = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10']; // List of radio button group names
+  let allSelected = true;
+
+  for (const group of radioGroups) {
+    const radios = form.querySelectorAll(`input[name="${group}"]`);
+    const selected = Array.from(radios).some(radio => radio.checked);
+
+    if (!selected) {
+      allSelected = false;
+      break;
+    }
+  }
+
+ 
+  if (!allSelected) {
+    // alert('All radio buttons are not selected!');
+    var error = document.getElementById("error");
+    error.classList.add('show');
+    error.style.transform = 'translateY(10vh)';
+    setTimeout(() => {
+    error.classList.remove('show');
+  }, 2000);
+  } 
+
+    });
+
+
+    document.getElementById("submitQuiz").addEventListener("click", function () {
+        const form = document.getElementById("quizForm");
+        let score = 0;
+        let resultHTML = '';
+        
+        for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+            const selected = form[question] ? form[question].value : undefined;
+            const questionDiv = document.getElementById(question);
+            
+            if (selected === correctAnswer) {
+                score++;
+                resultHTML += `<div class="quiz-item correct">
+                    <p><span>Correct!</span><br><br>${questionDiv.querySelector('p').innerText}</p>
+                    <p class="answer-feedback correct">Your answer: ${questionDiv.querySelector(`input[value="${selected}"]`).parentElement.innerText.trim()}</p>
+                </div>`;
+            } else {
+                resultHTML += `<div class="quiz-item incorrect">
+                    
+                    <p><span>Incorrect!</span><br> <br>${questionDiv.querySelector('p').innerText}</p>
+                    <p class="answer-feedback incorrect"> Correct answer: ${questionDiv.querySelector(`input[value="${correctAnswer}"]`).parentElement.innerText.trim()}</p>
+                    <p class="answer-feedback incorrect">Your answer: ${questionDiv.querySelector(`input[value="${selected}"]`).parentElement.innerText.trim()}</p>
+                </div>`;
+            }
+        }
+        document.getElementById("quizResult").innerHTML = `<div><strong>You scored ${score} out of ${Object.keys(correctAnswers).length}!</strong></div>` + resultHTML;
+        document.getElementById("quizResult").innerHTML += `<a href="quiz.html" id="retakeQuiz">Restart quiz</a>`;
+    });
+    </script>
+</body>
+</html>
